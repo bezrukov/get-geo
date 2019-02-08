@@ -1,0 +1,34 @@
+{
+  "name": "bezrukov/get-geo",
+  "bin": ["bin/get-geo"],
+  "description": "get geo data from ip",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Vladimir Bezrukov",
+      "email": "mokevnin@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "scripts": {
+    "phpcs": "phpcs",
+    "phpcbf": "phpcbf",
+    "phpunit": "phpunit",
+    "test": "phpunit tests"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bezrukov\\Get-geo\\": "src",
+      "Bezrukov\\Get-geo\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "nategood/commando": "*",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "squizlabs/php_codesniffer": "*",
+    "codeclimate/php-test-reporter": "dev-master"
+  }
+}
