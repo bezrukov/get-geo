@@ -11,11 +11,11 @@ class GeoIp
     const IP_API = 'http://ip-api.com/json/';
 
     /**
-     * @param null $ip
+     * @param string $ip
      * @return Services\GeoIpResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getInfoFromIp($ip = null): Services\GeoIpResponse
+    public function getInfoFromIp($ip = ''): Services\GeoIpResponse
     {
         $request = GeoIpRequest::getFromData($ip);
 

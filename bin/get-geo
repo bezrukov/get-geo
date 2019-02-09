@@ -15,9 +15,9 @@ $cmd->option('i')
 
 $ip = $cmd['i'];
 
-$getGeoIp = new GeoIp();
+$GeoIp = new GeoIp();
 
-$GeoIpInfo = $getGeoIp->getInfoFromIp($ip);
+$GeoIpInfo = $GeoIp->getInfoFromIp($ip);
 
 print_r($GeoIpInfo->city);
 
