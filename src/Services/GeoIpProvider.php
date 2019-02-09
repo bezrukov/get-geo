@@ -8,11 +8,16 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class GeoIpProvider
 {
-    public $httpClient;
+    /** @var Client */
+    private $httpClient;
 
-    public function __construct($baseUrl)
+    /** @var GeoIpResponse */
+    private $response;
+
+    public function __construct($httpClient, $Response)
     {
-        $this->httpClient = new Client(['base_uri' => $baseUrl]);
+        $this->httpClient = $httpClient;
+        $this->response = $Response;
     }
 
     /**
@@ -22,8 +27,6 @@ class GeoIpProvider
      */
     public function getData(GeoIpRequest $request): GeoIpResponse
     {
-        $response = new GeoIpResponse();
-
         try {
             $apiResponse = $this->httpClient->request(
                 'GET',
@@ -31,7 +34,6 @@ class GeoIpProvider
             );
 
         } catch (GuzzleException $e) {
-            var_dump($e->getMessage());
             throw new GeoIpException('System service error request');
         }
 
@@ -43,8 +45,8 @@ class GeoIpProvider
             throw new GeoIpException('System service error');
         }
 
-        $response->setFromArray($result);
+        $this->response->setFromArray($result);
 
-        return $response;
+        return $this->response;
     }
 }

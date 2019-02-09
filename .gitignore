@@ -3,3 +3,4 @@ logs
 *.swo
 *.swp
 .idea
+.DS_Store
