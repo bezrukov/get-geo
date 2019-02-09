@@ -20,4 +20,3 @@ $GeoIp = new GeoIp();
 $GeoIpInfo = $GeoIp->getInfoFromIp($ip);
 
 print_r($GeoIpInfo->city);
-

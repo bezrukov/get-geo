@@ -24,23 +24,14 @@ class GeoIpProvider
     {
         $response = new GeoIpResponse();
 
-        try {
-            $apiResponse = $this->httpClient->request(
-                'GET',
-                $ip
-            );
-
-        } catch (GuzzleException $e) {
-            throw $e;
-        }
+        $apiResponse = $this->httpClient->request(
+            'GET',
+            $ip
+        );
 
         $contents = $apiResponse->getBody()->getContents();
 
-        try {
-            $result = \GuzzleHttp\json_decode($contents, true) ?: [];
-        } catch (\InvalidArgumentException $e) {
-            throw $e;
-        }
+        $result = json_decode($contents, true) ?: [];
 
         $response->setFromArray($result);
 
