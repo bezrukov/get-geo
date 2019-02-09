@@ -2,13 +2,19 @@
 
 namespace Bezrukov\GetGeo;
 
-use Bezrukov\GetGeo\Services\GeoIpRequest;
 use Bezrukov\GetGeo\Services\GeoIpProvider;
 use GuzzleHttp\Client;
 
 class GeoIp
 {
     const IP_API = 'http://ip-api.com/json/';
+
+    private $httpClient;
+
+    public function __construct($httpClient = null)
+    {
+        $this->httpClient = $httpClient ?? Client::class;
+    }
 
     /**
      * @param string $ip
@@ -17,12 +23,10 @@ class GeoIp
      */
     public function getInfoFromIp($ip = ''): Services\GeoIpResponse
     {
-        $request = GeoIpRequest::getFromData($ip);
-
-        $guzzleClient =  new Client(['base_uri' => self::IP_API]);
+        $guzzleClient = new $this->httpClient(['base_uri' => self::IP_API]);
 
         $provider = new GeoIpProvider($guzzleClient);
 
-        return $provider->getData($request);
+        return $provider->getData($ip ?? '');
     }
 }

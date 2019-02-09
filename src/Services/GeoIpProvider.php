@@ -16,18 +16,18 @@ class GeoIpProvider
     }
 
     /**
-     * @param GeoIpRequest $request
+     * @param string $ip
      * @return GeoIpResponse
      * @throws GuzzleException
      */
-    public function getData(GeoIpRequest $request): GeoIpResponse
+    public function getData(string $ip = ''): GeoIpResponse
     {
         $response = new GeoIpResponse();
 
         try {
             $apiResponse = $this->httpClient->request(
                 'GET',
-                $request->getIp()
+                $ip
             );
 
         } catch (GuzzleException $e) {
