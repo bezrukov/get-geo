@@ -4,7 +4,6 @@ namespace Bezrukov\GetGeo\Tests\Services;
 
 use Bezrukov\GetGeo\Services\GeoIpProvider;
 use Bezrukov\GetGeo\Services\GeoIpRequest;
-use Bezrukov\GetGeo\Services\GeoIpResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -24,18 +23,10 @@ class GeoIpProviderTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
         $request = $this->getMockRequest();
-        $provider = new GeoIpProvider($client, $this->getMockResponse());
+        $provider = new GeoIpProvider($client);
 
         $responseInst = $provider->getData($request);
         $this->assertEquals('TestData', $responseInst->city);
-    }
-
-    private function getMockResponse()
-    {
-        $response = $this->createMock(GeoIpResponse::class);
-        $response->method('setFromArray')->willReturn('');
-
-        return $response;
     }
 
     /**

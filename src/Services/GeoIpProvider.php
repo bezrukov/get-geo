@@ -2,7 +2,6 @@
 
 namespace Bezrukov\GetGeo\Services;
 
-use Bezrukov\GetGeo\GeoIpException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -11,13 +10,9 @@ class GeoIpProvider
     /** @var Client */
     private $httpClient;
 
-    /** @var GeoIpResponse */
-    private $response;
-
-    public function __construct($httpClient, $Response)
+    public function __construct($httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->response = $Response;
     }
 
     /**
@@ -27,6 +22,8 @@ class GeoIpProvider
      */
     public function getData(GeoIpRequest $request): GeoIpResponse
     {
+        $response = new GeoIpResponse();
+
         try {
             $apiResponse = $this->httpClient->request(
                 'GET',
@@ -45,8 +42,8 @@ class GeoIpProvider
             throw $e;
         }
 
-        $this->response->setFromArray($result);
+        $response->setFromArray($result);
 
-        return $this->response;
+        return $response;
     }
 }

@@ -17,7 +17,7 @@ $ip = $cmd['i'];
 
 $getGeoIp = new GeoIp();
 
-$city = $getGeoIp->getCityFromIp($ip);
+$GeoIpInfo = $getGeoIp->getInfoFromIp($ip);
 
-print_r($city);
+print_r($GeoIpInfo->city);
 
