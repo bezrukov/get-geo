@@ -6,8 +6,6 @@ namespace Bezrukov\GetGeo;
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Commando\Command;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 
 $cmd = new Command();
 
@@ -17,30 +15,9 @@ $cmd->option('i')
 
 $ip = $cmd['i'];
 
+$getGeoIp = new GeoIp();
 
-$client = new Client(
-    [
-        'base_uri' => 'http://ip-api.com/json/'.$ip,
-    ]
-);
+$city = $getGeoIp->getCityFromIp($ip);
 
-
-try {
-    $response = $client->request(
-        'GET',
-        ''
-    );
-} catch (GuzzleException $e) {
-}
-
-$contents = $response->getBody()->getContents();
-
-try {
-    $result = \GuzzleHttp\json_decode($contents, true) ?: [];
-} catch (\InvalidArgumentException $e) {
-
-    throw $e;
-}
-
-print_r($result['city']);
+print_r($city);
 

@@ -18,8 +18,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Bezrukov\\Get-geo\\": "src",
-      "Bezrukov\\Get-geo\\Tests\\": "tests"
+      "Bezrukov\\GetGeo\\": "src",
+      "Bezrukov\\GetGeo\\Tests\\": "tests"
     }
   },
   "require": {
