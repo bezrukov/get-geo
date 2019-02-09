@@ -23,9 +23,9 @@ class GeoIp
      */
     public function getInfoFromIp($ip = ''): Services\GeoIpResponse
     {
-        $guzzleClient = new $this->httpClient(['base_uri' => self::IP_API]);
+        $client = new $this->httpClient(['base_uri' => self::IP_API]);
 
-        $provider = new GeoIpProvider($guzzleClient);
+        $provider = new GeoIpProvider($client);
 
         return $provider->getData($ip ?? '');
     }
