@@ -23,7 +23,7 @@ class GeoIpProvider
     /**
      * @param GeoIpRequest $request
      * @return GeoIpResponse
-     * @throws GeoIpException
+     * @throws GuzzleException
      */
     public function getData(GeoIpRequest $request): GeoIpResponse
     {
@@ -34,7 +34,7 @@ class GeoIpProvider
             );
 
         } catch (GuzzleException $e) {
-            throw new GeoIpException('System service error request');
+            throw $e;
         }
 
         $contents = $apiResponse->getBody()->getContents();
@@ -42,7 +42,7 @@ class GeoIpProvider
         try {
             $result = \GuzzleHttp\json_decode($contents, true) ?: [];
         } catch (\InvalidArgumentException $e) {
-            throw new GeoIpException('System service error');
+            throw $e;
         }
 
         $this->response->setFromArray($result);
